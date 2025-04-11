@@ -28,13 +28,21 @@ const completeTask = async (req, res) => {
     }
 };
 
+
 const getUserProfile = async (req, res) => {
+    console.log(req.body)
     try {
-        const user = await User.findById(req.user.id);
+        const user = await User.findById(req.body.userId);
+        const taskCompletion = await TaskCompletion.find({user:req.body.userId})
+        let obj={}
+        taskCompletion.forEach((ele)=>{
+            obj[ele["task"]]=ele["status"]
+        })
+
         if (!user)
             return res.status(404).json({ error: 'User not found' });
 
-        res.json(user);
+        res.json(obj);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
