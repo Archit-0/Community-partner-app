@@ -12,6 +12,8 @@ interface Task {
   createdAt: string;
 }
 
+const userStr = localStorage.getItem("user");
+
 export default function Tasks() {
   const navigate = useNavigate();
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -38,7 +40,38 @@ export default function Tasks() {
     fetchTasks();
   }, []);
 
-  const handleTaskClick = (task: Task) => {
+  const handleTaskClick = async(task: Task) => {
+    let taskId=task["_id"]
+    try{
+      const response = await fetch(`${LINK}/api/user/profile`, {
+        method: "POST",
+        body: JSON.stringify({ userId: JSON.parse(userStr!=null?userStr:"")["_id"] }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json()
+      
+      if (data[taskId]) {
+
+        alert(`Task Status: ${data[taskId]}`);
+        return
+        // console.log(tasks)
+        // let taskCopy: any= []
+        // tasks.forEach((ele)=>{
+        //   if (ele["_id"]!=taskId){
+        //     console.log(ele)
+        //     taskCopy.push(ele)
+        //   }
+        // })
+        // setTasks(taskCopy)
+        // navigate("/auth/dashboard");
+      }
+
+
+    }catch(err){
+      console.error("Error",err)
+    }
     setSelectedTask(task);
     setImage(null); // Reset image when selecting new task
   };
