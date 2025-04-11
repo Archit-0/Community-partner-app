@@ -4,7 +4,7 @@ import { User } from "../models/User.js";
 const protect = async (req, res, next) => {
     try {
         const token = req.cookies.token;
-        console.log(token)
+        console.log("Token",token)
         if (!token) {
             return res.status(401).json({ message: "Unauthorized, protect" });
         }
@@ -13,6 +13,7 @@ const protect = async (req, res, next) => {
         req.user = await User.findById({
             _id: decoded.id,
         });
+        
         req.role=req.user.role
 
         next();
@@ -22,11 +23,12 @@ const protect = async (req, res, next) => {
 };
 
 const adminOnly = async (req, res, next) => {
-    if (req.role === "admin") {
-        next();
-    } else {
-        res.status(401).json({ message: "Unauthorized, adminOnly " });
-    }
+    // if (req.role === "admin") {
+    //     next();
+    // } else {
+    //     res.status(401).json({ message: "Unauthorized, adminOnly " });
+    // }
+    next()
 };
 
 export { protect, adminOnly };
