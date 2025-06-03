@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { Submission } from "../../interfaces/Submission";
 import { approveSubmission, rejectSubmission } from "../../api/adminApi";
 
