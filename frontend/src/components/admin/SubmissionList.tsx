@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Submission } from "../../interfaces/Submission";
 import { getPendingSubmissions } from "../../api/adminApi";
-// import SubmissionItem from "./SubmissionItem";
+import SubmissionItem from "./SubmissionItem";
 
 const SubmissionList: React.FC = () => {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
