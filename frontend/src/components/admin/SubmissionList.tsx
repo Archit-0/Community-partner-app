@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Submission } from "../../interfaces/Submission";
 import { getPendingSubmissions } from "../../api/adminApi";
 import SubmissionItem from "./SubmissionItem";
